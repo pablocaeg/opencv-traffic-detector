@@ -35,7 +35,7 @@ def read_frame_from_stream(stream_url):
     cap.release()
 
 # Replace with your YouTube video URL
-youtube_url = 'https://www.youtube.com/watch?v=KBsqQez-O4w'
+youtube_url = 'https://www.youtube.com/watch?v=ByED80IKdIU'
 
 # Extract the stream URL using yt-dlp
 stream_url = get_youtube_stream_url(youtube_url)
@@ -51,7 +51,7 @@ model = YOLO('yolo11n.pt')  # Use the nano model for faster inference
 car_class_id = 2  # Class ID 2 corresponds to 'car'
 
 # Initialize the SORT tracker
-tracker = Sort(max_age=30, min_hits=3, iou_threshold=0.1)
+tracker = Sort(max_age=30, min_hits=3, iou_threshold=0.05)
 
 # Desired target resolution for better performance
 target_width = 640
@@ -113,9 +113,26 @@ for frame, fps in read_frame_from_stream(stream_url):
     elapsed_time = time.time() - start_time
     elapsed_time_str = time.strftime("%H:%M:%S", time.gmtime(elapsed_time))
 
-    # Display stats on the screen (total cars passed and elapsed time)
-    cv2.putText(frame, f"Cars Passed: {last_object_id}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
-    cv2.putText(frame, f"Time Elapsed: {elapsed_time_str}", (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+    # Define the text properties
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    font_scale = 0.6
+    font_thickness = 1
+    text_color = (0, 0, 0)  # Black text
+    background_color = (255, 255, 255)  # White background
+    padding = 5  # Padding around the text
+    line_spacing = 30  # Adjust the line spacing between texts
+
+    # Function to draw text with a background
+    def draw_text_with_background(img, text, position):
+        (text_width, text_height), baseline = cv2.getTextSize(text, font, font_scale, font_thickness)
+        x, y = position
+        cv2.rectangle(img, (x, y - text_height - padding), (x + text_width + padding * 2, y + baseline), background_color, -1)
+        cv2.putText(img, text, (x + padding, y), font, font_scale, text_color, font_thickness)
+
+    # Draw text with background for stats
+    draw_text_with_background(frame, f"Cars Passed: {last_object_id}", (10, 40))  # Reduce Y position for first text
+    draw_text_with_background(frame, f"Time Elapsed: {elapsed_time_str}", (10, 40 + line_spacing))  # Close gap with smaller Y increment
+    draw_text_with_background(frame, f"FPS: {fps:.2f}", (10, 40 + 2 * line_spacing))  # Even smaller margin for third text
 
     # Display the original frame with bounding boxes and stats
     cv2.imshow('YOLO Car Detection', frame)
