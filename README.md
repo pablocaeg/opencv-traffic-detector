@@ -1,73 +1,77 @@
-# YouTube Object Detection with YOLOv5
+# 🚗 YOLO11 Vehicle Detection from YouTube Stream
 
-This project is a Python-based implementation that uses **YOLOv5** to perform real-time object detection on cars in a live stream from YouTube. The YouTube video stream is processed using **yt-dlp** to retrieve the stream URL, and the video is analyzed frame by frame using **OpenCV**. YOLOv5 is used for object detection, specifically to detect cars, and bounding boxes are drawn around them in real-time.
+This Python project uses **YOLO11** for real-time vehicle detection from a YouTube video stream. It tracks vehicles like **cars** and displays the total number of vehicles passed along with the elapsed time on the video stream.
 
-## Features
+## 📷 Demo
 
-- Extracts the best available video stream from YouTube using **yt-dlp**.
-- Processes the video stream frame by frame using **OpenCV**.
-- Detects objects in real-time using **YOLOv5**.
-- Draws bounding boxes around detected cars in the video stream.
+![Demo GIF](https://media.giphy.com/media/3o7aCU5KSwxI1akSXq/giphy.gif)
 
-## Requirements
+## ✨ Features
+- Real-time vehicle detection using **YOLO11**.
+- Detects **cars** from YouTube live streams and videos.
+- Tracks detected vehicles using **SORT** (Simple Online and Realtime Tracking).
+- Displays bounding boxes and vehicle counts on the video stream.
+- Shows **elapsed time** and **vehicle counts** on the video.
 
-Before running this project, you need to have the following Python libraries installed:
+## 🛠️ Tech Stack
+- **[Python](https://www.python.org/)** ![Python](https://img.shields.io/badge/Python-3.8-blue?logo=python)
+- **[YOLO11](https://github.com/ultralytics/yolov5)** ![YOLO](https://img.shields.io/badge/YOLO-Object_Detection-orange)
+- **[OpenCV](https://opencv.org/)** ![OpenCV](https://img.shields.io/badge/OpenCV-Computer_Vision-green)
+- **[yt-dlp](https://github.com/yt-dlp/yt-dlp)** for extracting YouTube video streams
+- **[SORT](https://github.com/abewley/sort)** for tracking objects
+- **NumPy** ![NumPy](https://img.shields.io/badge/NumPy-Array_Processing-blue)
 
-- `yt-dlp` (for retrieving the YouTube video stream)
-- `torch` (for using the YOLOv5 model)
-- `opencv-python` (for processing the video stream and drawing bounding boxes)
+## 🚀 Quick Start
 
-You can install the required packages using `pip`:
+1. **Clone the repository**:
 
-```bash
-pip install yt-dlp torch opencv-python
-```
+   ```bash
+   git clone https://github.com/pablocaeg/opencv-traffic-detector.git
+   cd opencv-traffic-detector
+   ```
 
-## How to Run
+2. **Install dependencies**:
 
-1. Clone or download this repository.
-2. Make sure you have Python 3 installed on your machine.
-3. Install the required libraries (see above).
-4. Run the `detection.py` script:
+   ```bash
+   pip install numpy opencv-python yt-dlp ultralytics
+   ```
+
+3. **Install SORT**:
+
+   SORT isn't available via `pip`, so you need to install it manually:
+
+   ```bash
+   git clone https://github.com/abewley/sort.git
+   cd sort
+   pip install -r requirements.txt
+   python setup.py install
+   ```
+
+4. **Run the script**:
 
    ```bash
    python3 detection.py
    ```
 
-The script will automatically extract the best available YouTube video stream, process the frames, and use YOLOv5 to detect cars in real-time.
+5. **Replace the YouTube URL**:
+   - In `detection.py`, replace the `youtube_url` variable with the YouTube video or livestream URL you want to process:
 
-## Code Overview
+   ```python
+   youtube_url = 'https://www.youtube.com/watch?v=YOUR_VIDEO_ID'
+   ```
 
-### `get_youtube_stream_url(youtube_url)`
+## 📊 Stats Displayed on Video
+- **Total Cars Passed**: Counts and displays the total number of cars detected during the video stream.
+- **Elapsed Time**: Shows how long the script has been running in **HH:MM:SS** format.
 
-This function uses **yt-dlp** to extract the best video stream URL from a given YouTube video URL. It simplifies the process of getting the video stream, allowing it to be passed into OpenCV.
+## 🖼️ Example Output
 
-### `read_frame_from_stream(stream_url)`
+![Screenshot](./images/demo.png)
 
-This function opens the video stream using **OpenCV's `VideoCapture`** and reads frames from the stream in real-time, yielding each frame for processing.
+When the script is running, you'll see a video stream with **bounding boxes** around the detected cars and real-time stats overlaying the video.
 
-### YOLOv5 Model Loading and Inference
-
-YOLOv5 is loaded using **`torch.hub`**, and it performs object detection on each frame. The detections are filtered to only show cars, and bounding boxes are drawn around the detected cars.
-
-## Example
-
-Here’s an example of how you can replace the YouTube URL in the script with a different one:
-
-```python
-# Replace with your YouTube video URL
-youtube_url = 'https://www.youtube.com/watch?v=YOUR_VIDEO_ID'
+Example of stats:
 ```
-
-After running the script, you will see a video window where YOLOv5 detects and tracks cars, marking them with bounding boxes.
-
-## Issues
-
-If you encounter any issues, please ensure that:
-- You have installed the required libraries.
-- You are using a valid YouTube URL that provides a video stream.
-- Your internet connection is stable enough to stream the video in real-time.
-
-## License
-
-This project is open-source and available under the MIT License.
+Cars Passed: 14
+Time Elapsed: 00:12:43
+```
