@@ -4,7 +4,7 @@ This Python project uses **YOLO11** for real-time vehicle detection from a YouTu
 
 ## 📷 Demo
 
-![Demo GIF](https://media.giphy.com/media/3o7aCU5KSwxI1akSXq/giphy.gif)
+![Demo](./images/demo.gif)
 
 ## ✨ Features
 - Real-time vehicle detection using **YOLO11**.
@@ -65,8 +65,6 @@ This Python project uses **YOLO11** for real-time vehicle detection from a YouTu
 - **Elapsed Time**: Shows how long the script has been running in **HH:MM:SS** format.
 
 ## 🖼️ Example Output
-
-![Screenshot](./images/demo.png)
 
 When the script is running, you'll see a video stream with **bounding boxes** around the detected cars and real-time stats overlaying the video.
 
