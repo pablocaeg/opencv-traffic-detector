@@ -33,7 +33,7 @@ This Python project uses **YOLO11** for real-time vehicle detection from a YouTu
 2. **Install dependencies**:
 
    ```bash
-   pip install numpy opencv-python yt-dlp ultralytics
+   pip install filterpy scikit-image numpy opencv-python torch ultralytics yt-dlp
    ```
 
 3. **Install SORT**:

@@ -35,7 +35,7 @@ def read_frame_from_stream(stream_url):
     cap.release()
 
 # Replace with your YouTube video URL
-youtube_url = 'https://www.youtube.com/watch?v=iJZcjZD0fw0&t=24s'
+youtube_url = 'https://www.youtube.com/watch?v=KBsqQez-O4w'
 
 # Extract the stream URL using yt-dlp
 stream_url = get_youtube_stream_url(youtube_url)
